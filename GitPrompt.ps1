@@ -139,17 +139,17 @@ function Write-GitStatus($status) {
             $branchStatusForegroundColor = $s.BranchIdenticalStatusToForegroundColor
         } elseif ($status.BehindBy -ge 1 -and $status.AheadBy -ge 1) {
             # We are both behind and ahead of remote
-            $branchStatusSymbol          = $s.BranchBehindAndAheadStatusSymbol
+            #$branchStatusSymbol          = $s.BranchBehindAndAheadStatusSymbol
             $branchStatusBackgroundColor = $s.BranchBehindAndAheadStatusBackgroundColor
             $branchStatusForegroundColor = $s.BranchBehindAndAheadStatusForegroundColor
         } elseif ($status.BehindBy -ge 1) {
             # We are behind remote
-            $branchStatusSymbol          = $s.BranchBehindStatusSymbol
+            #$branchStatusSymbol          = $s.BranchBehindStatusSymbol
             $branchStatusBackgroundColor = $s.BranchBehindStatusBackgroundColor
             $branchStatusForegroundColor = $s.BranchBehindStatusForegroundColor
         } elseif ($status.AheadBy -ge 1) {
             # We are ahead of remote
-            $branchStatusSymbol          = $s.BranchAheadStatusSymbol
+            #$branchStatusSymbol          = $s.BranchAheadStatusSymbol
             $branchStatusBackgroundColor = $s.BranchAheadStatusBackgroundColor
             $branchStatusForegroundColor = $s.BranchAheadStatusForegroundColor
         } else {
@@ -229,12 +229,12 @@ function Write-GitStatus($status) {
         }
         
         if ($s.EnableBranchStatus -and ($status.AheadBy -gt 0)) {
-            Write-Prompt " $([char]0x2191)$($status.AheadBy)" -BackgroundColor $s.BranchAheadBackgroundColor -ForegroundColor $s.BranchAheadForegroundColor
+            Write-Prompt " $($s.BranchAheadStatusSymbol)$($status.AheadBy)" -BackgroundColor $s.BranchAheadStatusBackgroundColor -ForegroundColor $s.BranchAheadStatusForegroundColor
         }
        
         if ($s.EnableBranchStatus -and ($status.BehindBy -gt 0)) {
-            Write-Prompt " $([char]0x2193)$($status.BehindBy)" -BackgroundColor $s.BranchBehindBackgroundColor -ForegroundColor $s.BranchBehindForegroundColor
-        }       
+            Write-Prompt " $($s.BranchBehindStatusSymbol)$($status.BehindBy)" -BackgroundColor $s.BranchBehindStatusBackgroundColor -ForegroundColor $s.BranchBehindStatusForegroundColor
+        }
 
         Write-Prompt $s.AfterText -BackgroundColor $s.AfterBackgroundColor -ForegroundColor $s.AfterForegroundColor
 
