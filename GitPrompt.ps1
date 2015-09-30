@@ -79,6 +79,8 @@ $global:GitPromptSettings = New-Object PSObject -Property @{
 
     EnablePromptStatus                          = !$Global:GitMissing
     EnableFileStatus                            = $true
+    EnableBranchStatus                          = $true
+
     RepositoriesInWhichToDisableFileStatus      = @( ) # Array of repository paths
     DescribeStyle                               = ''
 
@@ -225,6 +227,14 @@ function Write-GitStatus($status) {
              Write-Prompt $status.StashCount -BackgroundColor $s.StashBackgroundColor -ForegroundColor $s.StashForegroundColor
              Write-Prompt $s.AfterStashText -BackgroundColor $s.AfterStashBackgroundColor -ForegroundColor $s.AfterStashForegroundColor
         }
+        
+        if ($s.EnableBranchStatus -and ($status.AheadBy -gt 0)) {
+            Write-Prompt " $([char]0x2191)$($status.AheadBy)" -BackgroundColor $s.BranchAheadBackgroundColor -ForegroundColor $s.BranchAheadForegroundColor
+        }
+       
+        if ($s.EnableBranchStatus -and ($status.BehindBy -gt 0)) {
+            Write-Prompt " $([char]0x2193)$($status.BehindBy)" -BackgroundColor $s.BranchBehindBackgroundColor -ForegroundColor $s.BranchBehindForegroundColor
+        }       
 
         Write-Prompt $s.AfterText -BackgroundColor $s.AfterBackgroundColor -ForegroundColor $s.AfterForegroundColor
 
